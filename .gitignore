@@ -130,3 +130,6 @@ dmypy.json
 
 # pycharm
 .idea/
+
+# local file for testing
+day_sample.txt
