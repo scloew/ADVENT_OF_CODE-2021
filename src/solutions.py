@@ -1,4 +1,4 @@
-from src.utils import day_3b_util
+from src.utils import day_3b_util, transform_day4_input
 
 
 def day_1a():
@@ -58,15 +58,40 @@ def day_3b():
     return int(ox_rating, 2) * int(scrubber, 2)
 
 
+def day_4a():
+    data = get_input('4a')
+    # data = get_input('sample')
+    nums_called, boards = transform_day4_input(data)
+    for num in nums_called:
+        print('\n************\n')
+        print(num)
+        for board in boards:
+            if board.check_number(num):
+                return num * board.calc_score()
+            print('\n====\n')
+            print(board)
+
+
+def day_4b():
+    data = get_input('4a')
+    nums_called, boards = transform_day4_input(data)
+    score = 0
+    for num in nums_called:
+        for board in boards.copy():
+            if board.check_number(num):
+                score = num * board.calc_score()
+                boards.remove(board)
+    return score
+
+
 def get_input(day, type_=None):
     f_name = f'..\\inputs\\day_{day}.txt'
     with open(f_name) as f:
         if type_ is None:
-            print('tick')
             return f.readlines()
         else:
             return tuple(type_(i) for i in f.readlines())
 
 
-solution = day_3b()
+solution = day_4b()
 print(f'solution:={solution}')
